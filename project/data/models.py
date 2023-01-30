@@ -25,8 +25,16 @@ class Variables(db.Model):
     ind_af = db.Column(db.Float, nullable=False)
     dens_plant = db.Column(db.Float, nullable=False)
 
-    def __init__(self, ref_ondac, vel_viento, temp_aire, hum_super, altura):
+    def __init__(self, ref_ondac, viento, tempair, humsuper, altura, desp, long, ind, dens):
         self.ref_ondac = ref_ondac
+        self.vel_viento = viento
+        self.temp_aire = tempair
+        self.hum_super = humsuper
+        self.altura_cv = altura
+        self.desp_cv = desp
+        self.long_rugv = long
+        self.ind_af = ind
+        self.dens_plant = dens
 
 class Constantes(db.Model):
     __tablename__ = 'constantes'
@@ -51,6 +59,22 @@ class Calculos(db.Model):
     cal_latV = db.Column(db.Float, nullable=False)
     rel_macv = db.Column(db.Float, nullable=False)
     rel_mstc = db.Column(db.Float, nullable=False)
-    id_sensor = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_sensor'), nullable=False)
-    id_const = db.Column(db.Integer, db.ForeignKey('constantes.id_constante'), nullable=False)
-    id_variables = db.Column(db.Integer, db.ForeignKey('variables.id_variables'), nullable=False)
+    
+    sensores_temp_id = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_sensor'), nullable=False)
+    sensores_temp = db.relationship("Sensores_Temp", backref = db.backref("sensores_temp", uselist = False))
+
+    constantes_id = db.Column(db.Integer, db.ForeignKey('constantes.id_constante'), nullable=False)
+    constantes = db.relationship("Constantes", backref = db.backref("constantes", uselist = False))
+
+    variables_id_var = db.Column(db.Integer, db.ForeignKey('variables.id_variables'), nullable=False)
+    variables = db.relationship("Variables", backref = db.backref('variables.id_variables', uselist = False))
+
+    def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc):
+        self.flujo_calnets = calnet
+        rad_ondac = ondac
+        flujo_calsens = calsens
+        cal_lat = calat
+        coef_cn = coefcn
+        cal_latV = calatv
+        rel_macv = relmacv
+        rel_mstc = relmstc

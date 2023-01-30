@@ -1,8 +1,11 @@
-# Script que se encarga de extraer los datos de los sensores 
+# Script que se encarga de extraer los datos de los sensores, aunque funciona 
+# de forma independiente a la aplicacion 
 import os
 import glob
 import time
 from datetime import datetime
+from project.data.models import Sensores_Temp
+from project import db
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -28,13 +31,24 @@ def read_temp(sensor):
         temp_c = float(temp_string) / 1000.0
         return temp_c
 
-while True:
-    now = datetime.now()
-    hora = now.hour
-    minuto = now.minute
-    print("Temp del sensor 1: "+str(read_temp(0))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-    print("Temp del sensor 2: "+str(read_temp(1))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-    print("Temp del sensor 3: "+str(read_temp(2))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-    print("Temp del sensor 4: "+str(read_temp(3))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-    time.sleep(30)
-    print("Pasaron 30 segundos")
+def getTemperature():
+    while True:
+        n = 0
+        while n < 4:
+            now = datetime.now()
+            sensor = read_temp(n)
+            n += 1
+            sens_info = Sensores_Temp(n, sensor, now)
+
+            db.session.add(sens_info)
+            db.session.commit()
+
+        # print("Temp del sensor 1: "+str(read_temp(0))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+        # print("Temp del sensor 2: "+str(read_temp(1))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+        # print("Temp del sensor 3: "+str(read_temp(2))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+        # print("Temp del sensor 4: "+str(read_temp(3))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+        time.sleep(30)
+        print("Pasaron 30 segundos")
+
+if __name__ == '__main__':
+    getTemperature()

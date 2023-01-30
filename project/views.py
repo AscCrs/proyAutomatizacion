@@ -1,4 +1,5 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request, url_for
+from project.data.models import Sensores_Template, Variables, Constantes, Calculos
 
 content = Blueprint('content', __name__)
 
