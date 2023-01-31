@@ -31,6 +31,9 @@ def read_temp(sensor):
         temp_c = float(temp_string) / 1000.0
         return temp_c
 
+# Ingresar la temperatura de la humedad
+hum = 0
+
 def getTemperature():
     while True:
         n = 0
@@ -38,7 +41,7 @@ def getTemperature():
             now = datetime.now()
             sensor = read_temp(n)
             n += 1
-            sens_info = Sensores_Temp(n, sensor, now)
+            sens_info = Sensores_Temp(n, sensor, now, hum)
 
             db.session.add(sens_info)
             db.session.commit()
@@ -48,7 +51,6 @@ def getTemperature():
         # print("Temp del sensor 3: "+str(read_temp(2))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
         # print("Temp del sensor 4: "+str(read_temp(3))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
         time.sleep(30)
-        print("Pasaron 30 segundos")
 
 if __name__ == '__main__':
     getTemperature()

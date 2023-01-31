@@ -5,12 +5,14 @@ class Sensores_Temp(db.Model):
     __tablename__ = 'sensores_temp'
     id_sensor = db.Column(db.Integer, primary_key=True)
     temperatura = db.Column(db.Float, nullable=False)
+    humedad = db.Column(db.Float, nullable=False)
     fecha = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, id_sensor, temperatura, fecha):
+    def __init__(self, id_sensor, temperatura, humedad,fecha):
         self.id_sensor = id_sensor
         self.temperatura = temperatura
         self.fecha = fecha
+        self.humedad = humedad
 
 class Variables(db.Model):
     __tablename__ = 'variables'
@@ -55,7 +57,7 @@ class Calculos(db.Model):
     rad_ondac = db.Column(db.Float, nullable=False)
     flujo_calsens = db.Column(db.Float, nullable=False)
     cal_lat = db.Column(db.Float, nullable=False)
-    coef_cn = db.Column(db.Double, nullable=False)
+    coef_cn = db.Column(db.Float, nullable=False)
     cal_latV = db.Column(db.Float, nullable=False)
     rel_macv = db.Column(db.Float, nullable=False)
     rel_mstc = db.Column(db.Float, nullable=False)
@@ -69,12 +71,12 @@ class Calculos(db.Model):
     variables_id_var = db.Column(db.Integer, db.ForeignKey('variables.id_variables'), nullable=False)
     variables = db.relationship("Variables", backref = db.backref('variables.id_variables', uselist = False))
 
-    def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc):
-        self.flujo_calnets = calnet
-        rad_ondac = ondac
-        flujo_calsens = calsens
-        cal_lat = calat
-        coef_cn = coefcn
-        cal_latV = calatv
-        rel_macv = relmacv
-        rel_mstc = relmstc
+    # def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc):
+    #     self.flujo_calnets = calnet
+    #     rad_ondac = ondac
+    #     flujo_calsens = calsens
+    #     cal_lat = calat
+    #     coef_cn = coefcn
+    #     cal_latV = calatv
+    #     rel_macv = relmacv
+    #     rel_mstc = relmstc
