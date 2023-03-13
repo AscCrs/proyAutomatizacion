@@ -71,7 +71,7 @@ class Calculos(db.Model):
     variables_id_var = db.Column(db.Integer, db.ForeignKey('variables.id_variables'), nullable=False)
     variables = db.relationship("Variables", backref = db.backref('variables.id_variables', uselist = False))
 
-    # def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc):
+    # def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc, senstemp_id, constid, varid):
     #     self.flujo_calnets = calnet
     #     rad_ondac = ondac
     #     flujo_calsens = calsens
@@ -80,3 +80,6 @@ class Calculos(db.Model):
     #     cal_latV = calatv
     #     rel_macv = relmacv
     #     rel_mstc = relmstc
+    #     sensores_temp_id = senstemp_id
+    #     consstantes_id = constid
+    #     variables_id_var = varid
