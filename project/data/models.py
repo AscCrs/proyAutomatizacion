@@ -16,7 +16,7 @@ class Sensores_Temp(db.Model):
 
 class Variables(db.Model):
     __tablename__ = 'variables'
-    id_variables = db.Column(db.Integer, primary_key=True)
+    id_variables = db.Column(db.Integer, primary_key=True, unique = True)
     ref_ondac = db.Column(db.Float, nullable=False)
     vel_viento = db.Column(db.Float, nullable=False)
     temp_aire = db.Column(db.Float, nullable=False)
@@ -40,7 +40,7 @@ class Variables(db.Model):
 
 class Constantes(db.Model):
     __tablename__ = 'constantes'
-    id_constante = db.Column(db.Integer, primary_key=True)
+    id_constante = db.Column(db.Integer, primary_key=True, unique = True)
     temp_const = db.Column(db.Float, nullable=False)
     dens_aire = db.Column(db.Float, nullable=False)
     calor_especif = db.Column(db.Float, nullable=False)

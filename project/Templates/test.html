@@ -5,15 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This page is for testing</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <h1>Datos recopilados hasta ahora</h1>
     <table border="1" align="center">
         <tr>
-            <td>Fecha</td>
+            <td>Sensor</td>
             <td>Temperatura</td>
+            <td>Humedad</td>
+            <td>Fecha</td>
         </tr>
-
-        
+        <tr>
+            {% for sensor in Sensores_Temp %}
+                <td>{{ sensor.id_sensor }}</td>
+                <td>{{ sensor.temperatura }} </td>
+                <td>{{ sensor.humedad }}</td>
+                <td>{{ sensor.fecha }}</td>
+            {% endfor %}
+        </tr>
     </table>
+
+    <a href="{{ url_for('content.test') }}">Realizar Calculo</a>
 </body>
 </html>
