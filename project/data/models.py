@@ -40,12 +40,13 @@ class Variables(db.Model):
 
 class Constantes(db.Model):
     __tablename__ = 'constantes'
-    id_constante = db.Column(db.Integer, primary_key=True, unique = True)
-    temp_const = db.Column(db.Float, nullable=False)
-    dens_aire = db.Column(db.Float, nullable=False)
+    id_constante = db.Column(db.Integer, primary_key=True, default=1)
+    temp_const = db.Column(db.Float, nullable=False, unique = True)
+    dens_aire = db.Column(db.Float, nullable=False, unique = True)
     calor_especif = db.Column(db.Float, nullable=False)
 
-    def __init__(self, temp, dens, calesp):
+    def __init__(self, id, temp, dens, calesp):
+        self.id_constante = id
         self.temp_const = temp
         self.dens_aire = dens
         self.calor_especif = calesp

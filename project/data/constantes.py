@@ -14,14 +14,25 @@ propiedades_aire = [
     (45, 1.109, 1007),
     (50, 1.092, 1007)
 ]
+def delete_all_constantes():
+    db.session.query(Constantes).delete()
+    db.session.commit()
 
 def actConst():
-    for temperatura, densidad, calorEspecif in propiedades_aire:
-        constantes = Constantes(
-            temperatura, 
-            densidad, 
-            calorEspecif
-        )
-        db.session.add(constantes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-
-    db.session.commit()
+    delete_all_constantes()
+    it = 1
+    # Verificar si los datos ya existen en la tabla Constantes
+    if db.session.query(Constantes).count() == 0:
+        # Agregar los datos a la tabla
+        for temperatura, densidad, calorEspecif in propiedades_aire:
+            constantes = Constantes(
+                it,
+                temperatura, 
+                densidad, 
+                calorEspecif
+            )
+            db.session.add(constantes)
+            it += 1;
+        db.session.commit()
+    else:
+        print('Elemento duplicado')
