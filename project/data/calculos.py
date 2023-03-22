@@ -12,27 +12,26 @@ def Rad_ondac(Za, Zd, Zo):
 
     return Is
 
+waf = 1.1
+cf = 0.0127
+paf = 1.124
+
 def Flujo_calsens(LAI):
-    paf = 1.124
-    cpa = 2932
-    cf = 0.0127
-    waf = 1.1
+    cpa = 2932    
     Taf = 317.95
     tf = 313.8
     Hf = (1.1 * LAI * paf * cpa * cf * waf) * (Taf - tf)
     return Hf
 
-def Cal_lat():
-    return
+def Cal_lat(Tf):
+    const = 1.91846e6
+    lf = const * (Tf / Tf - 33.91) ** 2
+    return lf
 
 def Coef_cn():
-    return
+    Cf = 0.01 * (1 + 0.3 / waf)
+    return Cf
 
-def Cal_latv():
-    return
-
-def rel_macv():
-    return
-
-def rel_mstc():
-    return
+def Cal_latv(lf, LAI, r, qaf):
+    Lf = lf * LAI * paf * cf * waf * r * qaf
+    return Lf

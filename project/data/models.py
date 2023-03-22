@@ -2,18 +2,19 @@
 from project import db
 
 class Sensores_Temp(db.Model):
-    __tablename__ = 'sensores_temp'
+    __tablename__  = 'sensores_temp'
     id_temperatura = db.Column(db.Integer, primary_key=True)
     num_sensor     = db.Column(db.Integer)
-    temperatura   = db.Column(db.Float, nullable=False)
-    humedad       = db.Column(db.Float, nullable=False)
-    fecha         = db.Column(db.DateTime, nullable=False)
+    temperatura    = db.Column(db.Float, nullable=False)
+    humedad        = db.Column(db.Float, nullable=False)
+    fecha          = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, num_sensor, temperatura, humedad,fecha):
-        self.num_sensor   = num_sensor
-        self.temperatura = temperatura
-        self.fecha       = fecha
-        self.humedad     = humedad
+    def __init__(self, id, num_sensor, temperatura, humedad,fecha):
+        self.id_temperatura = id
+        self.num_sensor     = num_sensor
+        self.temperatura    = temperatura
+        self.fecha          = fecha
+        self.humedad        = humedad
 
 class VariablesAtm(db.Model):
     __tablename__ = 'variables_atm'
@@ -22,11 +23,11 @@ class VariablesAtm(db.Model):
     vel_viento    = db.Column(db.Float, nullable=False)
     temp_aire     = db.Column(db.Float, nullable=False)
 
-    def __init__(self, ref_ondac,viento, tempair):
+    def __init__(self, id, ref_ondac,viento, tempair):
+        self.id_var_atm = id
         self.ref_ondac  = ref_ondac
         self.vel_viento = viento
         self.temp_aire  = tempair
-
 
 class Variables(db.Model):
     __tablename__ = 'variables'
@@ -39,7 +40,8 @@ class Variables(db.Model):
     m_airecv      = db.Column(db.Float, nullable=False)
     sat_tempcv    = db.Column(db.Float, nullable=False)
 
-    def __init__(self, humsuper, altura, desp, long, ind, m_airecv, sat_tempcv):
+    def __init__(self, id, humsuper, altura, desp, long, ind, m_airecv, sat_tempcv):
+        self.id_variables    = id
         self.hum_super  = humsuper
         self.altura_cv  = altura
         self.desp_cv    = desp
@@ -70,8 +72,6 @@ class Calculos(db.Model):
     cal_lat       = db.Column(db.Float, nullable=False)
     coef_cn       = db.Column(db.Float, nullable=False)
     cal_latV      = db.Column(db.Float, nullable=False)
-    rel_macv      = db.Column(db.Float, nullable=False)
-    rel_mstc      = db.Column(db.Float, nullable=False)
     
     sensores_temp_id = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_temperatura'), nullable=False)
     sensores_temp    = db.relationship("Sensores_Temp", backref = db.backref("sensores_temp", uselist = False))

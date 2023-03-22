@@ -24,12 +24,12 @@ def actConst():
     # Verificar si los datos ya existen en la tabla Constantes
     if db.session.query(Constantes).count() == 0:
         # Agregar los datos a la tabla
-        for temperatura, densidad, calorEspecif in propiedades_aire:
+        for Taf, paf, Cpa in propiedades_aire:
             constantes = Constantes(
                 it,
-                temperatura, 
-                densidad, 
-                calorEspecif
+                Taf, 
+                paf, 
+                Cpa
             )
             db.session.add(constantes)
             it += 1;
