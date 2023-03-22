@@ -34,24 +34,25 @@ def read_temp(sensor):
 # Ingresar la temperatura de la humedad
 hum = 0
 
-def getTemperature():
-    while True:
-        n = 0
-        while n < 4:
-            now = datetime.now()
-            now_str = now.strftime('%Y-%m-%d %H:%M:%S')
-            sensor = read_temp(n)
-            n += 1
-            sens_info = Sensores_Temp(n, sensor, now_str, hum)
+def getTemperature(continue_exec):
+    while continue_exec:
+        try:
+            n = 0
+            while n < 4:
+                now = datetime.now()
+                now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+                sensor = read_temp(n)
+                n += 1
+                sens_info = Sensores_Temp(n, sensor, now_str, hum)
 
-            db.session.add(sens_info)
-            db.session.commit()
+                db.session.add(sens_info)
+                db.session.commit()
 
-        # print("Temp del sensor 1: "+str(read_temp(0))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-        # print("Temp del sensor 2: "+str(read_temp(1))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-        # print("Temp del sensor 3: "+str(read_temp(2))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-        # print("Temp del sensor 4: "+str(read_temp(3))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
-        time.sleep(30)
-
-if __name__ == '__main__':
-    getTemperature()
+                # print("Temp del sensor 1: "+str(read_temp(0))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+                # print("Temp del sensor 2: "+str(read_temp(1))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+                # print("Temp del sensor 3: "+str(read_temp(2))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+                # print("Temp del sensor 4: "+str(read_temp(3))+" ˚C" + " Hora: " + str(hora) + ":" + str(minuto))
+                time.sleep(30)
+        except Exception as e:
+            print(f"Se produjo un error: {e}")
+    print("Deteniendo el proceso en segundo plano ...")
