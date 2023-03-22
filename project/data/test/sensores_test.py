@@ -2,7 +2,7 @@ from project.data.models import Sensores_Temp
 from project import db
 from datetime import datetime
 
-def delete_all_constantes():
+def delete_all_sensores():
     db.session.query(Sensores_Temp).delete()
     db.session.commit()
 
@@ -18,7 +18,7 @@ sensores = [
 ]
 
 def actSensores():
-    delete_all_constantes()
+    delete_all_sensores()
     # Verificar si los datos ya existen en la tabla Constantes
     if db.session.query(Sensores_Temp).count() == 0:
         # Insertar los objetos en la base de datos
