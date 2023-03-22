@@ -22,7 +22,7 @@ def actVariables():
     if db.session.query(Variables).count() == 0:
         # Agregar los datos a la tabla
         variables = Variables(
-            r'', 
+            r_pr, 
             Za, 
             Zd, 
             Zo,
@@ -31,7 +31,6 @@ def actVariables():
             qa
         )
         db.session.add(variables)
-        it += 1;
         db.session.commit()
     else:
         print('Elemento duplicado')

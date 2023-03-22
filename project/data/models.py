@@ -3,13 +3,14 @@ from project import db
 
 class Sensores_Temp(db.Model):
     __tablename__ = 'sensores_temp'
-    id_sensor     = db.Column(db.Integer, primary_key=True, unique = False)
+    id_temperatura = db.Column(db.Integer, primary_key=True)
+    num_sensor     = db.Column(db.Integer)
     temperatura   = db.Column(db.Float, nullable=False)
     humedad       = db.Column(db.Float, nullable=False)
     fecha         = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, id_sensor, temperatura, humedad,fecha):
-        self.id_sensor   = id_sensor
+    def __init__(self, num_sensor, temperatura, humedad,fecha):
+        self.num_sensor   = num_sensor
         self.temperatura = temperatura
         self.fecha       = fecha
         self.humedad     = humedad
@@ -38,16 +39,14 @@ class Variables(db.Model):
     m_airecv      = db.Column(db.Float, nullable=False)
     sat_tempcv    = db.Column(db.Float, nullable=False)
 
-    def __init__(self, ref_ondac, viento, tempair, humsuper, altura, desp, long, ind, dens):
-        self.ref_ondac  = ref_ondac
-        self.vel_viento = viento
-        self.temp_aire  = tempair
+    def __init__(self, humsuper, altura, desp, long, ind, m_airecv, sat_tempcv):
         self.hum_super  = humsuper
         self.altura_cv  = altura
         self.desp_cv    = desp
         self.long_rugv  = long
         self.ind_af     = ind
-        self.dens_plant = dens
+        self.m_airecv   = m_airecv
+        self.sat_tempcv = sat_tempcv
 
 class Constantes(db.Model):
     __tablename__ = 'constantes'
@@ -74,7 +73,7 @@ class Calculos(db.Model):
     rel_macv      = db.Column(db.Float, nullable=False)
     rel_mstc      = db.Column(db.Float, nullable=False)
     
-    sensores_temp_id = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_sensor'), nullable=False)
+    sensores_temp_id = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_temperatura'), nullable=False)
     sensores_temp    = db.relationship("Sensores_Temp", backref = db.backref("sensores_temp", uselist = False))
 
     constantes_id    = db.Column(db.Integer, db.ForeignKey('constantes.id_constante'), nullable=False)

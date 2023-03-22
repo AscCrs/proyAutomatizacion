@@ -12,8 +12,13 @@ def Rad_ondac(Za, Zd, Zo):
 
     return Is
 
-def Flujo_calsens(LAI, paf, cpa, cf, waf, Taf, tf):
-    
+def Flujo_calsens(LAI):
+    paf = 1.124
+    cpa = 2932
+    cf = 0.0127
+    waf = 1.1
+    Taf = 317.95
+    tf = 313.8
     Hf = (1.1 * LAI * paf * cpa * cf * waf) * (Taf - tf)
     return Hf
 

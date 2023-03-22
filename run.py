@@ -2,24 +2,25 @@ from project import app, db
 import project.data.constantes as createConst
 import project.data.test.sensores_test as testSens 
 import project.data.test.variables_test as testVar
-from multiprocessing import Process
-import project.data.getdata as gd
+#from multiprocessing import Process
+#import project.data.getdata as gd
 
 with app.app_context(): 
     #Insercion de los valores para las constantes en la DB
     createConst.actConst()
     testVar.actVariables()
+    testSens.actSensores()
     db.create_all()
 
 if __name__ == "__main__":
     continue_exec = True
-    sensores_Temp = Process(target=gd.getTemperature(continue_exec))
-    sensores_Temp.start()
+    #sensores_Temp = Process(target=gd.getTemperature(continue_exec))
+    #sensores_Temp.start()
 
     app.run()
 
     continuar_ejecucion = False
-    sensores_Temp.join()  # Esperar a que el proceso en segundo plano termine de ejecutarse
+    #sensores_Temp.join()  # Esperar a que el proceso en segundo plano termine de ejecutarse
 
     #! Segunda forma de continuar con el proceso de recoleccion de temp
     # try:
