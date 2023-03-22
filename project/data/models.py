@@ -3,7 +3,7 @@ from project import db
 
 class Sensores_Temp(db.Model):
     __tablename__ = 'sensores_temp'
-    id_sensor = db.Column(db.Integer, primary_key=True)
+    id_sensor = db.Column(db.Integer, primary_key=True, unique = False)
     temperatura = db.Column(db.Float, nullable=False)
     humedad = db.Column(db.Float, nullable=False)
     fecha = db.Column(db.DateTime, nullable=False)
@@ -14,18 +14,29 @@ class Sensores_Temp(db.Model):
         self.fecha = fecha
         self.humedad = humedad
 
-class Variables(db.Model):
-    __tablename__ = 'variables'
-    id_variables = db.Column(db.Integer, primary_key=True, unique = True)
+class VariablesAtm(db.Model):
+    __tablename__ = 'variables_atm'
+    id_var_atm = db.Column(db.Integer, primary_key=True)
     ref_ondac = db.Column(db.Float, nullable=False)
     vel_viento = db.Column(db.Float, nullable=False)
     temp_aire = db.Column(db.Float, nullable=False)
+
+    def __init__(self, ref_ondac,viento, tempair):
+        self.ref_ondac = ref_ondac
+        self.vel_viento = viento
+        self.temp_aire = tempair
+
+
+class Variables(db.Model):
+    __tablename__ = 'variables'
+    id_variables = db.Column(db.Integer, primary_key=True)
     hum_super = db.Column(db.Float, nullable=False)
     altura_cv = db.Column(db.Float, nullable=False)
     desp_cv = db.Column(db.Float, nullable=False)
     long_rugv = db.Column(db.Float, nullable=False)
     ind_af = db.Column(db.Float, nullable=False)
-    dens_plant = db.Column(db.Float, nullable=False)
+    m_airecv = db.Column(db.Float, nullable=False)
+    sat_tempcv = db.Column(db.Float, nullable=False)
 
     def __init__(self, ref_ondac, viento, tempair, humsuper, altura, desp, long, ind, dens):
         self.ref_ondac = ref_ondac

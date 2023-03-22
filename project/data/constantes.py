@@ -13,7 +13,7 @@ propiedades_aire = [
     (40, 1.127, 1007),
     (45, 1.109, 1007),
     (50, 1.092, 1007)
-]
+]   
 def delete_all_constantes():
     db.session.query(Constantes).delete()
     db.session.commit()

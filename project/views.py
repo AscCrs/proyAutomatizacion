@@ -3,6 +3,8 @@ from project.data.models import Sensores_Temp, Variables, Constantes, Calculos
 
 content = Blueprint('content', __name__)
 
+#Routers
+
 @content.route('/')
 def home():
     return render_template('test.html')

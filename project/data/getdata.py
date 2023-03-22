@@ -39,9 +39,10 @@ def getTemperature():
         n = 0
         while n < 4:
             now = datetime.now()
+            now_str = now.strftime('%Y-%m-%d %H:%M:%S')
             sensor = read_temp(n)
             n += 1
-            sens_info = Sensores_Temp(n, sensor, now, hum)
+            sens_info = Sensores_Temp(n, sensor, now_str, hum)
 
             db.session.add(sens_info)
             db.session.commit()
