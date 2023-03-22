@@ -12,8 +12,10 @@ def Rad_ondac(Za, Zd, Zo):
 
     return Is
 
-def Flujo_calsens():
-    return
+def Flujo_calsens(LAI, paf, cpa, cf, waf, Taf, tf):
+    
+    Hf = (1.1 * LAI * paf * cpa * cf * waf) * (Taf - tf)
+    return Hf
 
 def Cal_lat():
     return

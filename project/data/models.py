@@ -3,85 +3,85 @@ from project import db
 
 class Sensores_Temp(db.Model):
     __tablename__ = 'sensores_temp'
-    id_sensor = db.Column(db.Integer, primary_key=True, unique = False)
-    temperatura = db.Column(db.Float, nullable=False)
-    humedad = db.Column(db.Float, nullable=False)
-    fecha = db.Column(db.DateTime, nullable=False)
+    id_sensor     = db.Column(db.Integer, primary_key=True, unique = False)
+    temperatura   = db.Column(db.Float, nullable=False)
+    humedad       = db.Column(db.Float, nullable=False)
+    fecha         = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, id_sensor, temperatura, humedad,fecha):
-        self.id_sensor = id_sensor
+        self.id_sensor   = id_sensor
         self.temperatura = temperatura
-        self.fecha = fecha
-        self.humedad = humedad
+        self.fecha       = fecha
+        self.humedad     = humedad
 
 class VariablesAtm(db.Model):
     __tablename__ = 'variables_atm'
-    id_var_atm = db.Column(db.Integer, primary_key=True)
-    ref_ondac = db.Column(db.Float, nullable=False)
-    vel_viento = db.Column(db.Float, nullable=False)
-    temp_aire = db.Column(db.Float, nullable=False)
+    id_var_atm    = db.Column(db.Integer, primary_key=True)
+    ref_ondac     = db.Column(db.Float, nullable=False)
+    vel_viento    = db.Column(db.Float, nullable=False)
+    temp_aire     = db.Column(db.Float, nullable=False)
 
     def __init__(self, ref_ondac,viento, tempair):
-        self.ref_ondac = ref_ondac
+        self.ref_ondac  = ref_ondac
         self.vel_viento = viento
-        self.temp_aire = tempair
+        self.temp_aire  = tempair
 
 
 class Variables(db.Model):
     __tablename__ = 'variables'
-    id_variables = db.Column(db.Integer, primary_key=True)
-    hum_super = db.Column(db.Float, nullable=False)
-    altura_cv = db.Column(db.Float, nullable=False)
-    desp_cv = db.Column(db.Float, nullable=False)
-    long_rugv = db.Column(db.Float, nullable=False)
-    ind_af = db.Column(db.Float, nullable=False)
-    m_airecv = db.Column(db.Float, nullable=False)
-    sat_tempcv = db.Column(db.Float, nullable=False)
+    id_variables  = db.Column(db.Integer, primary_key=True)
+    hum_super     = db.Column(db.Float, nullable=False)
+    altura_cv     = db.Column(db.Float, nullable=False)
+    desp_cv       = db.Column(db.Float, nullable=False)
+    long_rugv     = db.Column(db.Float, nullable=False)
+    ind_af        = db.Column(db.Float, nullable=False)
+    m_airecv      = db.Column(db.Float, nullable=False)
+    sat_tempcv    = db.Column(db.Float, nullable=False)
 
     def __init__(self, ref_ondac, viento, tempair, humsuper, altura, desp, long, ind, dens):
-        self.ref_ondac = ref_ondac
+        self.ref_ondac  = ref_ondac
         self.vel_viento = viento
-        self.temp_aire = tempair
-        self.hum_super = humsuper
-        self.altura_cv = altura
-        self.desp_cv = desp
-        self.long_rugv = long
-        self.ind_af = ind
+        self.temp_aire  = tempair
+        self.hum_super  = humsuper
+        self.altura_cv  = altura
+        self.desp_cv    = desp
+        self.long_rugv  = long
+        self.ind_af     = ind
         self.dens_plant = dens
 
 class Constantes(db.Model):
     __tablename__ = 'constantes'
-    id_constante = db.Column(db.Integer, primary_key=True, default=1)
-    temp_const = db.Column(db.Float, nullable=False, unique = True)
-    dens_aire = db.Column(db.Float, nullable=False, unique = True)
+    id_constante  = db.Column(db.Integer, primary_key=True, default=1)
+    temp_const    = db.Column(db.Float, nullable=False, unique = True)
+    dens_aire     = db.Column(db.Float, nullable=False, unique = True)
     calor_especif = db.Column(db.Float, nullable=False)
 
     def __init__(self, id, temp, dens, calesp):
-        self.id_constante = id
-        self.temp_const = temp
-        self.dens_aire = dens
+        self.id_constante  = id
+        self.temp_const    = temp
+        self.dens_aire     = dens
         self.calor_especif = calesp
 
 class Calculos(db.Model):
     __tablename__ = 'calculos'
-    id_calculos = db.Column(db.Integer, primary_key=True)
-    flujo_calnet = db.Column(db.Float, nullable=False)
-    rad_ondac = db.Column(db.Float, nullable=False)
+    id_calculos   = db.Column(db.Integer, primary_key=True)
+    flujo_calnet  = db.Column(db.Float, nullable=False)
+    rad_ondac     = db.Column(db.Float, nullable=False)
     flujo_calsens = db.Column(db.Float, nullable=False)
-    cal_lat = db.Column(db.Float, nullable=False)
-    coef_cn = db.Column(db.Float, nullable=False)
-    cal_latV = db.Column(db.Float, nullable=False)
-    rel_macv = db.Column(db.Float, nullable=False)
-    rel_mstc = db.Column(db.Float, nullable=False)
+    cal_lat       = db.Column(db.Float, nullable=False)
+    coef_cn       = db.Column(db.Float, nullable=False)
+    cal_latV      = db.Column(db.Float, nullable=False)
+    rel_macv      = db.Column(db.Float, nullable=False)
+    rel_mstc      = db.Column(db.Float, nullable=False)
     
     sensores_temp_id = db.Column(db.Integer, db.ForeignKey('sensores_temp.id_sensor'), nullable=False)
-    sensores_temp = db.relationship("Sensores_Temp", backref = db.backref("sensores_temp", uselist = False))
+    sensores_temp    = db.relationship("Sensores_Temp", backref = db.backref("sensores_temp", uselist = False))
 
-    constantes_id = db.Column(db.Integer, db.ForeignKey('constantes.id_constante'), nullable=False)
-    constantes = db.relationship("Constantes", backref = db.backref("constantes", uselist = False))
+    constantes_id    = db.Column(db.Integer, db.ForeignKey('constantes.id_constante'), nullable=False)
+    constantes       = db.relationship("Constantes", backref = db.backref("constantes", uselist = False))
 
     variables_id_var = db.Column(db.Integer, db.ForeignKey('variables.id_variables'), nullable=False)
-    variables = db.relationship("Variables", backref = db.backref('variables.id_variables', uselist = False))
+    variables        = db.relationship("Variables", backref = db.backref('variables.id_variables', uselist = False))
 
     # def __init__(self, calnet, ondac, calsens, calat, coefcn, calatv, relmacv, relmstc, senstemp_id, constid, varid):
     #     self.flujo_calnets = calnet
