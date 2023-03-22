@@ -2,6 +2,7 @@ from project import app, db
 import project.data.constantes as createConst
 import project.data.test.sensores_test as testSens 
 import project.data.test.variables_test as testVar
+import project.data.test.variablesatm_test as testVaratm
 #from multiprocessing import Process
 #import project.data.getdata as gd
 
@@ -9,6 +10,7 @@ with app.app_context():
     #Insercion de los valores para las constantes en la DB
     createConst.actConst()
     testVar.actVariables()
+    testVaratm.actVaratm()
     testSens.actSensores()
     db.create_all()
 
