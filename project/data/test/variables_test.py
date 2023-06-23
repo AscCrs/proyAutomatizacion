@@ -28,7 +28,8 @@ def actVariables():
             Zo,
             LAI, 
             qf,
-            qa
+            qa,
+            14.3
         )
         db.session.add(variables)
         db.session.commit()
