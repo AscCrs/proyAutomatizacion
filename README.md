@@ -14,6 +14,8 @@ Repositorio generado para mostrar los avances realizados con el proyecto de auto
 <h2>Librerias necesarias</h2>
 
 <ul>
+    <li>Numpy</li>
+    <li>PyMySQL[rsa]</li>
     <li>Flask</li>
     <li>Flask MySQLAlchemy</li>
     <li>Jinja</li>
